@@ -7,9 +7,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        'brand-bg': '#f3f4f6', // Slightly darker off-white for the body background to make the "phone" pop
+        'brand-bg': '#f3f4f6',
         'app-bg': '#ffffff',
-        'brand-primary': '#111827', // Almost black for a premium look
+        'brand-primary': '#111827',
         'brand-secondary': '#4f46e5',
         'brand-text': '#1f2937',
         'brand-muted': '#6b7280',
@@ -17,7 +17,7 @@ export default {
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
         serif: ['Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
-        display: ['"Playfair Display"', 'Georgia', 'serif'], // For big immersive headers
+        display: ['"Playfair Display"', 'Georgia', 'serif'],
       },
       boxShadow: {
         'soft': '0 10px 40px -10px rgba(0,0,0,0.08)',
@@ -26,6 +26,7 @@ export default {
       },
       animation: {
         'blob': 'blob 7s infinite',
+        'shimmer': 'shimmer 2s linear infinite',
       },
       keyframes: {
         blob: {
@@ -33,6 +34,9 @@ export default {
           '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
           '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
           '100%': { transform: 'translate(0px, 0px) scale(1)' },
+        },
+        shimmer: {
+          '100%': { transform: 'translateX(100%)' },
         }
       }
     },

@@ -42,7 +42,13 @@ export const Home = () => {
   };
 
   return (
-    <div className="h-full overflow-y-auto bg-brand-bg no-scrollbar pb-20 pt-16 relative">
+    <motion.div
+      initial={{ opacity: 0, x: -50 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -50, transition: { duration: 0.2 } }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="h-full overflow-y-auto bg-brand-bg no-scrollbar pb-20 pt-16 relative"
+    >
       {/* Decorative blurred background shapes */}
       <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-indigo-50 to-transparent pointer-events-none" />
 
@@ -61,10 +67,18 @@ export const Home = () => {
         {/* Daily Gratitude Section */}
         <motion.section variants={itemVariants}>
           <div className="flex items-center gap-2 mb-5 text-indigo-600">
-            <Heart size={20} className="fill-current" />
+            <motion.div
+              animate={gratitudeEntry.length > 0 ? { scale: [1, 1.2, 1] } : {}}
+              transition={{ repeat: gratitudeEntry.length > 0 ? Infinity : 0, duration: 1.5 }}
+            >
+              <Heart size={20} className="fill-current" />
+            </motion.div>
             <h2 className="text-xl font-bold text-gray-900 tracking-tight">Daily Gratitude</h2>
           </div>
-          <div className="bg-white/80 p-6 rounded-[2rem] shadow-soft backdrop-blur-xl border border-white">
+          <div className="bg-white/80 p-6 rounded-[2rem] shadow-soft backdrop-blur-xl border border-white relative overflow-hidden group">
+            {/* Shimmer effect */}
+            <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_2s_infinite] pointer-events-none" />
+
             <form onSubmit={saveGratitude}>
               <div className="relative">
                 <input
@@ -74,13 +88,15 @@ export const Home = () => {
                   value={gratitudeEntry}
                   onChange={(e) => setGratitudeEntry(e.target.value)}
                 />
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   type="submit"
                   disabled={!gratitudeEntry.trim()}
-                  className="absolute right-2 top-2 bottom-2 bg-indigo-600 text-white px-5 rounded-xl text-sm font-semibold hover:bg-indigo-700 disabled:opacity-0 disabled:scale-95 transition-all shadow-md flex items-center justify-center"
+                  className="absolute right-2 top-2 bottom-2 bg-indigo-600 text-white px-5 rounded-xl text-sm font-semibold disabled:opacity-0 disabled:scale-95 transition-all shadow-md flex items-center justify-center"
                 >
                   Save
-                </button>
+                </motion.button>
               </div>
             </form>
 
@@ -106,7 +122,7 @@ export const Home = () => {
         {/* Micro Lessons Section */}
         <motion.section variants={itemVariants}>
           <div className="flex items-center gap-2 mb-5 text-indigo-600">
-            <BookOpen size={20} />
+            <BookOpen size={20} className="transition-transform group-hover:rotate-12" />
             <h2 className="text-xl font-bold text-gray-900 tracking-tight">Discover</h2>
           </div>
           <div className="grid gap-5">
@@ -115,17 +131,23 @@ export const Home = () => {
               return (
                 <motion.div
                   key={lesson.id}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  whileHover={{ scale: 1.03, y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
                   onClick={() => navigate(`/lesson/${lesson.id}`)}
-                  className={`relative overflow-hidden group cursor-pointer p-7 rounded-[2rem] shadow-soft border border-white/40 ${lesson.coverImage}`}
+                  className={`relative overflow-hidden group cursor-pointer p-7 rounded-[2rem] shadow-soft hover:shadow-float border border-white/40 ${lesson.coverImage} transition-shadow duration-300`}
                 >
                   <div className="relative z-10 flex flex-col h-full min-h-[140px] justify-between">
                     <div>
                       {isCompleted && (
-                        <span className="inline-block bg-white/40 text-xs font-bold px-3 py-1 rounded-full mb-4 text-gray-900 backdrop-blur-md shadow-sm">
-                          Completed
-                        </span>
+                        <motion.span
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          className="inline-flex items-center gap-1 bg-white/40 text-xs font-bold px-3 py-1 rounded-full mb-4 text-gray-900 backdrop-blur-md shadow-sm relative overflow-hidden"
+                        >
+                          <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/50 to-transparent animate-[shimmer_3s_infinite] pointer-events-none" />
+                          <Sparkles size={12} className="text-amber-600" /> Completed
+                        </motion.span>
                       )}
                       <h3 className="text-[1.35rem] font-bold text-gray-900 mb-2 font-display leading-tight">{lesson.title}</h3>
                       <p className="text-gray-800 text-sm font-medium leading-relaxed opacity-90 max-w-[85%]">{lesson.description}</p>
@@ -147,6 +169,6 @@ export const Home = () => {
         </motion.div>
 
       </motion.div>
-    </div>
+    </motion.div>
   );
 };

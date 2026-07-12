@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import type { Slide } from '../../data/types';
 import { X, ChevronRight } from 'lucide-react';
 import { BackgroundEffects } from './BackgroundEffects';
+import { AnimatedIcon } from './AnimatedIcon';
 
 interface StoryViewerProps {
   slides: Slide[];
@@ -91,7 +92,11 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({ slides, onComplete, on
   };
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, x: 50 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
       className="absolute inset-0 select-none overflow-hidden"
       onClick={handleTap}
       style={{
@@ -157,8 +162,8 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({ slides, onComplete, on
               {currentSlide.type === 'title' && (
                 <>
                   {currentSlide.icon && (
-                    <motion.div variants={childVariants} className="text-[6rem] mb-12 leading-none filter drop-shadow-2xl">
-                      {currentSlide.icon}
+                    <motion.div variants={childVariants} className="w-32 h-32 mb-12">
+                      <AnimatedIcon name={currentSlide.icon} />
                     </motion.div>
                   )}
                   {currentSlide.title && (
@@ -215,6 +220,6 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({ slides, onComplete, on
           </motion.div>
         </AnimatePresence>
       </div>
-    </div>
+    </motion.div>
   );
 };

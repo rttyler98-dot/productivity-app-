@@ -10,7 +10,7 @@ export const lessonsData: Lesson[] = [
       {
         id: "slide1",
         type: "title",
-        icon: "🌱",
+        icon: "leaf",
         title: "The Mountain",
         content: "Right now, everything feels too big.",
         bgColor: "#1e3a8a", // Dark blue, heavy
@@ -54,7 +54,7 @@ export const lessonsData: Lesson[] = [
       {
         id: "slide1",
         type: "title",
-        icon: "⛈️",
+        icon: "cloud",
         title: "The Voice",
         content: "It can be so loud in there.",
         bgColor: "#312e81", // Deep indigo
@@ -97,7 +97,7 @@ export const lessonsData: Lesson[] = [
       {
         id: "slide1",
         type: "title",
-        icon: "🌑",
+        icon: "moon",
         title: "The Filter",
         content: "Our brains are wired to see the bad.",
         bgColor: "#171717", // Almost black
