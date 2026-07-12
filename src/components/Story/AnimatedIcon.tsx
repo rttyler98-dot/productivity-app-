@@ -61,6 +61,28 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ name, className = ""
             />
           </svg>
         );
+      case 'star':
+        return (
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full drop-shadow-2xl">
+            <motion.path
+              variants={iconVariants}
+              initial="hidden"
+              animate="visible"
+              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+            />
+          </svg>
+        );
+      case 'droplet':
+        return (
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full drop-shadow-2xl">
+            <motion.path
+              variants={iconVariants}
+              initial="hidden"
+              animate="visible"
+              d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"
+            />
+          </svg>
+        );
       default:
         return null;
     }

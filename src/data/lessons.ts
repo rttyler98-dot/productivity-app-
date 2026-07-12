@@ -130,5 +130,91 @@ export const lessonsData: Lesson[] = [
         bgAnimation: "breathe",
       }
     ]
+  },
+  {
+    id: "letting-go",
+    title: "Letting Go",
+    description: "Release the need to control everything.",
+    coverImage: "bg-teal-100",
+    slides: [
+      {
+        id: "slide1",
+        type: "title",
+        icon: "droplet",
+        title: "The Grip",
+        content: "Holding on tightly only hurts your hands.",
+        bgColor: "#0f766e", // Deep teal
+        textColor: "#ffffff",
+        bgAnimation: "waves", // Trying to control the waves
+      },
+      {
+        id: "slide2",
+        type: "text",
+        content: "We suffer when we try to steer the river.",
+        bgColor: "#115e59",
+        textColor: "#ccfbf1",
+        bgAnimation: "none",
+      },
+      {
+        id: "slide3",
+        type: "quote",
+        content: "Some things are simply not yours to carry.",
+        bgColor: "#0d9488",
+        textColor: "#ffffff",
+        bgAnimation: "float", // Releasing, floating away
+      },
+      {
+        id: "slide4",
+        type: "exercise",
+        title: "Open your hands.",
+        content: "Literally. Open your palms right now. Let it fall.",
+        bgColor: "#14b8a6",
+        textColor: "#ffffff",
+        bgAnimation: "breathe",
+      }
+    ]
+  },
+  {
+    id: "grounding-now",
+    title: "Here, Now",
+    description: "Anchor yourself when anxiety spirals.",
+    coverImage: "bg-rose-100",
+    slides: [
+      {
+        id: "slide1",
+        type: "title",
+        icon: "star",
+        title: "The Spiral",
+        content: "Your mind is racing into the future.",
+        bgColor: "#4c0519", // Deep dark rose/burgundy
+        textColor: "#ffffff",
+        bgAnimation: "pulse", // Fast heartbeat
+      },
+      {
+        id: "slide2",
+        type: "text",
+        content: "But you are not there. You are here.",
+        bgColor: "#881337",
+        textColor: "#ffe4e6",
+        bgAnimation: "none",
+      },
+      {
+        id: "slide3",
+        type: "text",
+        content: "Feel your feet on the floor.\nThe weight of your body.",
+        bgColor: "#9f1239",
+        textColor: "#ffffff",
+        bgAnimation: "float",
+      },
+      {
+        id: "slide4",
+        type: "exercise",
+        title: "Name three things.",
+        content: "Find three things you can see in this exact moment.",
+        bgColor: "#be123c",
+        textColor: "#ffffff",
+        bgAnimation: "breathe", // Slowing down the heart rate
+      }
+    ]
   }
 ];
