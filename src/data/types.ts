@@ -1,3 +1,5 @@
+export type BgAnimation = 'breathe' | 'pulse' | 'float' | 'waves' | 'none';
+
 export interface Slide {
   id: string;
   type: 'title' | 'text' | 'quote' | 'exercise';
@@ -7,6 +9,7 @@ export interface Slide {
   icon?: string;
   bgColor?: string;
   textColor?: string;
+  bgAnimation?: BgAnimation;
 }
 
 export interface Lesson {
