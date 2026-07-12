@@ -3,12 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import { BookOpen, Heart, Sparkles, Moon } from 'lucide-react';
 import { lessonsData } from '../data/lessons';
 import { motion } from 'framer-motion';
+import { useUserProfile } from '../hooks/useUserProfile';
 
 export const Home = () => {
   const navigate = useNavigate();
+  const { profile } = useUserProfile();
   const [gratitudeEntry, setGratitudeEntry] = useState('');
   const [savedGratitudes, setSavedGratitudes] = useState<string[]>([]);
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (!profile.hasCompletedOnboarding) {
+      navigate('/onboarding', { replace: true });
+    }
+  }, [profile.hasCompletedOnboarding, navigate]);
 
   useEffect(() => {
     const saved = localStorage.getItem('gratitudes');
@@ -60,7 +68,9 @@ export const Home = () => {
       >
         {/* Header */}
         <motion.div variants={itemVariants} className="pt-4 pb-2">
-          <h1 className="text-[2.5rem] font-bold text-gray-900 mb-2 font-display leading-tight tracking-tight">Good morning.</h1>
+          <h1 className="text-[2.5rem] font-bold text-gray-900 mb-2 font-display leading-tight tracking-tight">
+            {profile.name ? `Good morning, ${profile.name}.` : 'Good morning.'}
+          </h1>
           <p className="text-lg text-gray-500 font-medium">Take a moment for yourself today.</p>
         </motion.div>
 
@@ -123,9 +133,16 @@ export const Home = () => {
         <motion.section variants={itemVariants}>
           <div className="flex items-center gap-2 mb-5 text-indigo-600">
             <BookOpen size={20} className="transition-transform group-hover:rotate-12" />
-            <h2 className="text-xl font-bold text-gray-900 tracking-tight">Discover</h2>
+            <h2 className="text-xl font-bold text-gray-900 tracking-tight">
+              {profile.goal === 'peace' ? 'Your Path to Peace' :
+               profile.goal === 'presence' ? 'Your Path to Presence' :
+               profile.goal === 'joy' ? 'Your Path to Joy' :
+               profile.goal === 'compassion' ? 'Your Path to Kindness' :
+               'Discover'}
+            </h2>
           </div>
           <div className="grid gap-5">
+            {/* Sort lessons to prioritize user's goal if we had mapped tags, for now we just show all but highlight the title above */}
             {lessonsData.map((lesson) => {
               const isCompleted = completedLessons.includes(lesson.id);
               return (
