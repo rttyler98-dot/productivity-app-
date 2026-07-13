@@ -83,6 +83,39 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ name, className = ""
             />
           </svg>
         );
+      case 'sun':
+        return (
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full drop-shadow-2xl">
+            <motion.circle variants={iconVariants} initial="hidden" animate="visible" cx="12" cy="12" r="4" />
+            <motion.path variants={iconVariants} initial="hidden" animate="visible" d="M12 2v2" />
+            <motion.path variants={iconVariants} initial="hidden" animate="visible" d="M12 20v2" />
+            <motion.path variants={iconVariants} initial="hidden" animate="visible" d="m4.93 4.93 1.41 1.41" />
+            <motion.path variants={iconVariants} initial="hidden" animate="visible" d="m17.66 17.66 1.41 1.41" />
+            <motion.path variants={iconVariants} initial="hidden" animate="visible" d="M2 12h2" />
+            <motion.path variants={iconVariants} initial="hidden" animate="visible" d="M20 12h2" />
+            <motion.path variants={iconVariants} initial="hidden" animate="visible" d="m6.34 17.66-1.41 1.41" />
+            <motion.path variants={iconVariants} initial="hidden" animate="visible" d="m19.07 4.93-1.41 1.41" />
+          </svg>
+        );
+      case 'bolt':
+        return (
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full drop-shadow-2xl">
+            <motion.path variants={iconVariants} initial="hidden" animate="visible" d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+            <motion.path variants={iconVariants} initial="hidden" animate="visible" d="m11 17 6-9-5-1-1 9z" />
+          </svg>
+        );
+      case 'mountain':
+        return (
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full drop-shadow-2xl">
+            <motion.path variants={iconVariants} initial="hidden" animate="visible" d="m8 3 4 8 5-5 5 15H2L8 3z" />
+          </svg>
+        );
+      case 'heart':
+        return (
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full drop-shadow-2xl">
+            <motion.path variants={iconVariants} initial="hidden" animate="visible" d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+          </svg>
+        );
       default:
         return null;
     }

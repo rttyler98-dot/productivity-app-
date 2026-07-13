@@ -6,6 +6,7 @@ export const lessonsData: Lesson[] = [
     title: "Small Wins",
     description: "Start small when feeling overwhelmed.",
     coverImage: "bg-blue-100",
+    tags: ['peace', 'compassion'],
     slides: [
       {
         id: "slide1",
@@ -50,6 +51,7 @@ export const lessonsData: Lesson[] = [
     title: "Inner Critic",
     description: "Be kind to your mind.",
     coverImage: "bg-indigo-100",
+    tags: ['compassion', 'peace'],
     slides: [
       {
         id: "slide1",
@@ -93,6 +95,7 @@ export const lessonsData: Lesson[] = [
     title: "Noticing Joy",
     description: "Train your brain to see the good.",
     coverImage: "bg-amber-100",
+    tags: ['joy', 'presence'],
     slides: [
       {
         id: "slide1",
@@ -136,6 +139,7 @@ export const lessonsData: Lesson[] = [
     title: "Letting Go",
     description: "Release the need to control everything.",
     coverImage: "bg-teal-100",
+    tags: ['peace', 'compassion'],
     slides: [
       {
         id: "slide1",
@@ -179,6 +183,7 @@ export const lessonsData: Lesson[] = [
     title: "Here, Now",
     description: "Anchor yourself when anxiety spirals.",
     coverImage: "bg-rose-100",
+    tags: ['presence', 'peace'],
     slides: [
       {
         id: "slide1",
@@ -214,6 +219,176 @@ export const lessonsData: Lesson[] = [
         bgColor: "#be123c",
         textColor: "#ffffff",
         bgAnimation: "breathe", // Slowing down the heart rate
+      }
+    ]
+  },
+  {
+    id: 'morning-light',
+    title: 'The Morning Light',
+    description: 'How the sun sets the rhythm for your day.',
+    coverImage: 'bg-gradient-to-br from-amber-500 to-orange-400',
+    tags: ['joy', 'presence'],
+    slides: [
+      {
+        id: 'slide-1',
+        type: "title",
+        icon: 'sun',
+        title: 'We are wired for light.',
+        content: 'Morning sunlight signals to your brain that a new cycle has begun.',
+        bgColor: "#78350f",
+        textColor: "#ffffff",
+        bgAnimation: 'breathe'
+      },
+      {
+        id: 'slide-2',
+        type: "text",
+        title: 'It wakes up your cells.',
+        content: 'Just 10 minutes outside boosts serotonin and regulates your sleep later tonight.',
+        bgColor: "#b45309",
+        textColor: "#ffffff",
+        bgAnimation: 'float'
+      },
+      {
+        id: 'slide-3',
+        type: "exercise",
+        icon: 'sun',
+        title: 'Step outside.',
+        content: 'Before the noise begins, let the light remind you that you are alive.',
+        bgColor: "#d97706",
+        textColor: "#ffffff",
+        bgAnimation: 'pulse'
+      }
+    ]
+  },
+  {
+    id: 'dopamine-trap',
+    title: 'The Morning Trap',
+    description: 'Protecting your first hour from artificial spikes.',
+    coverImage: 'bg-gradient-to-br from-red-500 to-rose-600',
+    tags: ['presence', 'peace'],
+    slides: [
+      {
+        id: 'slide-1',
+        type: "title",
+        icon: 'bolt',
+        title: 'The instant reach.',
+        content: 'Opening your phone or reaching for sugar the second you wake up.',
+        bgColor: "#450a0a",
+        textColor: "#ffffff",
+        bgAnimation: 'pulse'
+      },
+      {
+        id: 'slide-2',
+        type: "text",
+        title: 'It hijacks your baseline.',
+        content: 'A massive, artificial dopamine spike early on makes everything else feel dull for the rest of the day.',
+        bgColor: "#7f1d1d",
+        textColor: "#ffffff",
+        bgAnimation: 'float'
+      },
+      {
+        id: 'slide-3',
+        type: "text",
+        title: 'Delay the reward.',
+        content: 'Wait just one hour. Drink water. Look out the window. Stretch.',
+        bgColor: "#991b1b",
+        textColor: "#ffffff",
+        bgAnimation: 'waves'
+      },
+      {
+        id: 'slide-4',
+        type: "exercise",
+        icon: 'mountain',
+        title: 'Reclaim the morning.',
+        content: 'When you control the first hour, you control the momentum of your entire day.',
+        bgColor: "#b91c1c",
+        textColor: "#ffffff",
+        bgAnimation: 'breathe'
+      }
+    ]
+  },
+  {
+    id: 'the-weight',
+    title: 'The Weight',
+    description: 'Shrinking the timeline when you feel overwhelmed.',
+    coverImage: 'bg-gradient-to-br from-slate-700 to-gray-900',
+    tags: ['peace', 'compassion'],
+    slides: [
+      {
+        id: 'slide-1',
+        type: "title",
+        icon: 'mountain',
+        title: 'The mountain.',
+        content: 'Looking at everything you have to do, all at once, is paralyzing.',
+        bgColor: "#0f172a",
+        textColor: "#ffffff",
+        bgAnimation: 'waves'
+      },
+      {
+        id: 'slide-2',
+        type: "text",
+        title: 'The brain panics.',
+        content: 'It perceives the entire week’s workload as an immediate, singular threat.',
+        bgColor: "#1e293b",
+        textColor: "#ffffff",
+        bgAnimation: 'pulse'
+      },
+      {
+        id: 'slide-3',
+        type: "text",
+        title: 'Shrink the timeline.',
+        content: 'Don’t think about tomorrow. Don’t even think about the afternoon.',
+        bgColor: "#334155",
+        textColor: "#ffffff",
+        bgAnimation: 'float'
+      },
+      {
+        id: 'slide-4',
+        type: "exercise",
+        icon: 'star',
+        title: 'Just the next step.',
+        content: 'What is the one, tiny thing you can do in the next five minutes? Just do that.',
+        bgColor: "#475569",
+        textColor: "#ffffff",
+        bgAnimation: 'breathe'
+      }
+    ]
+  },
+  {
+    id: 'grace',
+    title: 'Grace',
+    description: 'The quiet act of forgiving yourself.',
+    coverImage: 'bg-gradient-to-br from-pink-400 to-rose-400',
+    tags: ['compassion', 'peace'],
+    slides: [
+      {
+        id: 'slide-1',
+        type: "title",
+        icon: 'cloud',
+        title: 'The heavy debt.',
+        content: 'We carry our past mistakes like stones, convinced we must keep holding them.',
+        bgColor: "#4a044e",
+        textColor: "#ffffff",
+        bgAnimation: 'float'
+      },
+      {
+        id: 'slide-2',
+        type: "text",
+        title: 'You are allowed to drop them.',
+        content: 'Punishing yourself indefinitely does not change the past. It only ruins the present.',
+        bgColor: "#701a75",
+        textColor: "#ffffff",
+        bgAnimation: 'waves'
+      },
+      {
+        id: 'slide-3',
+        type: "exercise",
+        icon: 'heart',
+        title: 'Extend some grace.',
+        content: 'You did what you could with who you were then. Let it go. Begin again.',
+        bgColor: "#86198f",
+        textColor: "#ffffff",
+        bgAnimation: 'breathe'
       }
     ]
   }

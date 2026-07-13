@@ -142,8 +142,13 @@ export const Home = () => {
             </h2>
           </div>
           <div className="grid gap-5">
-            {/* Sort lessons to prioritize user's goal if we had mapped tags, for now we just show all but highlight the title above */}
-            {lessonsData.map((lesson) => {
+            {
+              // Sort lessons to prioritize user's goal
+              [...lessonsData].sort((a, b) => {
+                const aMatches = a.tags?.includes(profile.goal) ? 1 : 0;
+                const bMatches = b.tags?.includes(profile.goal) ? 1 : 0;
+                return bMatches - aMatches;
+              }).map((lesson) => {
               const isCompleted = completedLessons.includes(lesson.id);
               return (
                 <motion.div

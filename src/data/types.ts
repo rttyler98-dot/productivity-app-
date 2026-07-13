@@ -17,5 +17,6 @@ export interface Lesson {
   title: string;
   description: string;
   coverImage?: string;
+  tags: string[]; // Goals this lesson addresses (e.g. 'peace', 'presence', 'joy', 'compassion')
   slides: Slide[];
 }
