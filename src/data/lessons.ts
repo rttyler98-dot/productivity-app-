@@ -391,5 +391,145 @@ export const lessonsData: Lesson[] = [
         bgAnimation: 'breathe'
       }
     ]
+  },
+  {
+    id: 'digital-silence',
+    title: 'Digital Silence',
+    description: 'Disconnecting to reconnect with yourself.',
+    coverImage: 'bg-gradient-to-br from-indigo-800 to-purple-900',
+    tags: ['peace', 'presence'],
+    slides: [
+      {
+        id: 'slide-1',
+        type: "title",
+        icon: 'moon',
+        title: 'The Noise.',
+        content: 'We are constantly plugged into the thoughts of others.',
+        bgColor: "#1e1b4b",
+        textColor: "#ffffff",
+        bgAnimation: 'waves'
+      },
+      {
+        id: 'slide-2',
+        type: "text",
+        title: 'The endless scroll.',
+        content: 'It numbs us. It makes us forget what our own internal voice sounds like.',
+        bgColor: "#312e81",
+        textColor: "#ffffff",
+        bgAnimation: 'pulse'
+      },
+      {
+        id: 'slide-3',
+        type: "text",
+        title: 'Embrace the quiet.',
+        content: 'Boredom is not the enemy. It is the birthplace of creativity and peace.',
+        bgColor: "#3730a3",
+        textColor: "#ffffff",
+        bgAnimation: 'float'
+      },
+      {
+        id: 'slide-4',
+        type: "exercise",
+        icon: 'cloud',
+        title: 'Put it down.',
+        content: 'Turn off your screen for the next hour. Just exist.',
+        bgColor: "#4338ca",
+        textColor: "#ffffff",
+        bgAnimation: 'breathe'
+      }
+    ]
+  },
+  {
+    id: 'art-of-saying-no',
+    title: 'The Art of No',
+    description: 'Protecting your energy with gentle boundaries.',
+    coverImage: 'bg-gradient-to-br from-emerald-600 to-teal-700',
+    tags: ['compassion', 'peace'],
+    slides: [
+      {
+        id: 'slide-1',
+        type: "title",
+        icon: 'leaf',
+        title: 'The Yes Trap.',
+        content: 'Saying yes when you mean no is a quiet betrayal of yourself.',
+        bgColor: "#064e3b",
+        textColor: "#ffffff",
+        bgAnimation: 'pulse'
+      },
+      {
+        id: 'slide-2',
+        type: "text",
+        title: 'Your energy is finite.',
+        content: 'You cannot pour from an empty cup. Guarding your time is not selfish; it is necessary.',
+        bgColor: "#065f46",
+        textColor: "#ffffff",
+        bgAnimation: 'none'
+      },
+      {
+        id: 'slide-3',
+        type: "quote",
+        content: '"No" is a complete sentence.',
+        bgColor: "#047857",
+        textColor: "#ffffff",
+        bgAnimation: 'float'
+      },
+      {
+        id: 'slide-4',
+        type: "exercise",
+        icon: 'heart',
+        title: 'Reclaim your space.',
+        content: 'Think of one obligation you can gracefully decline this week.',
+        bgColor: "#059669",
+        textColor: "#ffffff",
+        bgAnimation: 'breathe'
+      }
+    ]
+  },
+  {
+    id: 'radical-acceptance',
+    title: 'Radical Acceptance',
+    description: 'Finding peace by letting go of how things "should" be.',
+    coverImage: 'bg-gradient-to-br from-stone-600 to-neutral-800',
+    tags: ['peace', 'compassion'],
+    slides: [
+      {
+        id: 'slide-1',
+        type: "title",
+        icon: 'mountain',
+        title: 'The Resistance.',
+        content: 'Pain is inevitable. Suffering comes from resisting the pain.',
+        bgColor: "#292524",
+        textColor: "#ffffff",
+        bgAnimation: 'waves'
+      },
+      {
+        id: 'slide-2',
+        type: "text",
+        title: 'The illusion of control.',
+        content: 'We exhaust ourselves trying to force reality to match our expectations.',
+        bgColor: "#44403c",
+        textColor: "#ffffff",
+        bgAnimation: 'pulse'
+      },
+      {
+        id: 'slide-3',
+        type: "text",
+        title: 'Drop the fight.',
+        content: 'Acceptance does not mean approval. It means acknowledging what is, right now.',
+        bgColor: "#57534e",
+        textColor: "#ffffff",
+        bgAnimation: 'float'
+      },
+      {
+        id: 'slide-4',
+        type: "exercise",
+        icon: 'droplet',
+        title: 'Breathe it in.',
+        content: 'Say it quietly: "It is what it is." Let the tension leave your shoulders.',
+        bgColor: "#78716c",
+        textColor: "#ffffff",
+        bgAnimation: 'breathe'
+      }
+    ]
   }
 ];
