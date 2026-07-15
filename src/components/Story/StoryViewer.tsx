@@ -72,7 +72,6 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({ slides, onComplete, on
     })
   };
 
-  // Slower stagger for a more dramatic, emotional reading pace
   const contentVariants: any = {
     hidden: { opacity: 0, y: 40 },
     visible: {
@@ -81,7 +80,7 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({ slides, onComplete, on
       transition: {
         duration: 0.8,
         ease: [0.25, 0.1, 0.25, 1],
-        staggerChildren: 0.3 // Increased stagger
+        staggerChildren: 0.3
       }
     }
   };
@@ -93,18 +92,18 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({ slides, onComplete, on
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 50 }}
-      animate={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0, y: 50, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className="absolute inset-0 select-none overflow-hidden"
       onClick={handleTap}
       style={{
         backgroundColor: currentSlide.bgColor || '#1e293b',
-        transition: 'background-color 1s ease-in-out' // Very smooth color transitions
+        transition: 'background-color 1s ease-in-out'
       }}
     >
-      {/* Immersive Dynamic Backgrounds based on slide config */}
+      {/* Immersive Dynamic Backgrounds */}
       {currentSlide.bgAnimation && <BackgroundEffects type={currentSlide.bgAnimation} />}
 
       {/* Progress Bars */}
@@ -145,7 +144,7 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({ slides, onComplete, on
             animate="center"
             exit="exit"
             transition={{
-              x: { type: "spring", stiffness: 200, damping: 25, mass: 0.8 }, // Slightly softer spring
+              x: { type: "spring", stiffness: 200, damping: 25, mass: 0.8 },
               opacity: { duration: 0.4 },
               rotateY: { duration: 0.5 },
               scale: { duration: 0.5 }
@@ -171,7 +170,7 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({ slides, onComplete, on
                       {currentSlide.title}
                     </motion.h2>
                   )}
-                  <motion.h1 variants={childVariants} className="text-5xl sm:text-6xl font-bold tracking-tight font-display leading-[1.1] drop-shadow-lg">
+                  <motion.h1 variants={childVariants} className="text-4xl sm:text-5xl font-bold tracking-tight font-display leading-[1.1] drop-shadow-lg">
                     {currentSlide.content}
                   </motion.h1>
                 </>
@@ -184,7 +183,7 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({ slides, onComplete, on
                       {currentSlide.title}
                     </motion.h2>
                   )}
-                  <motion.p variants={childVariants} className="text-4xl sm:text-5xl leading-[1.2] font-display font-bold drop-shadow-xl">
+                  <motion.p variants={childVariants} className="text-3xl sm:text-4xl leading-[1.3] font-display font-medium drop-shadow-xl">
                     {currentSlide.content}
                   </motion.p>
                 </div>
@@ -192,7 +191,7 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({ slides, onComplete, on
 
               {currentSlide.type === 'quote' && (
                 <div className="w-full relative text-center">
-                  <motion.p variants={childVariants} className="text-4xl sm:text-5xl font-serif italic leading-tight drop-shadow-xl relative z-10">
+                  <motion.p variants={childVariants} className="text-3xl sm:text-4xl font-serif italic leading-tight drop-shadow-xl relative z-10">
                     "{currentSlide.content}"
                   </motion.p>
                 </div>
@@ -201,17 +200,17 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({ slides, onComplete, on
               {currentSlide.type === 'exercise' && (
                 <motion.div variants={childVariants} className="w-full bg-white/10 p-10 rounded-[2.5rem] backdrop-blur-2xl border border-white/20 shadow-2xl text-center">
                   {currentSlide.title && (
-                    <h2 className="text-3xl font-bold font-display mb-6">{currentSlide.title}</h2>
+                    <h2 className="text-2xl font-bold font-display mb-6">{currentSlide.title}</h2>
                   )}
-                  <p className="text-2xl leading-relaxed font-medium opacity-90">{currentSlide.content}</p>
+                  <p className="text-xl leading-relaxed font-medium opacity-90">{currentSlide.content}</p>
                   <div className="mt-12 flex justify-center">
                     <motion.button
                       whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.2)" }}
                       whileTap={{ scale: 0.95 }}
                       onClick={(e) => { e.stopPropagation(); handleNext(); }}
-                      className="flex items-center gap-3 bg-white/10 px-8 py-4 rounded-full text-xl font-bold transition-colors backdrop-blur-md border border-white/20 shadow-lg"
+                      className="flex items-center gap-3 bg-white/10 px-6 py-3 rounded-full text-lg font-bold transition-colors backdrop-blur-md border border-white/20 shadow-lg"
                     >
-                      Breathe & Continue <ChevronRight size={24} />
+                      Continue <ChevronRight size={20} />
                     </motion.button>
                   </div>
                 </motion.div>

@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BookOpen, Heart, Sparkles, Moon } from 'lucide-react';
+import { Sparkles, Flame, Play, Target } from 'lucide-react';
 import { lessonsData } from '../data/lessons';
+import { unitsData } from '../data/units';
 import { motion } from 'framer-motion';
 import { useUserProfile } from '../hooks/useUserProfile';
+import { format } from 'date-fns';
 
 export const Home = () => {
   const navigate = useNavigate();
   const { profile } = useUserProfile();
-  const [gratitudeEntry, setGratitudeEntry] = useState('');
-  const [savedGratitudes, setSavedGratitudes] = useState<string[]>([]);
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
+  const [streak, setStreak] = useState(0);
 
   useEffect(() => {
     if (!profile.hasCompletedOnboarding) {
@@ -19,24 +20,16 @@ export const Home = () => {
   }, [profile.hasCompletedOnboarding, navigate]);
 
   useEffect(() => {
-    const saved = localStorage.getItem('gratitudes');
-    if (saved) setSavedGratitudes(JSON.parse(saved));
-
     const completed = localStorage.getItem('completedLessons');
-    if (completed) setCompletedLessons(JSON.parse(completed));
+    if (completed) {
+      const parsed = JSON.parse(completed);
+      setCompletedLessons(parsed);
+      // Dummy streak calc for visual purposes
+      setStreak(parsed.length > 0 ? 3 : 0);
+    }
   }, []);
 
-  const saveGratitude = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!gratitudeEntry.trim()) return;
-
-    const newGratitudes = [gratitudeEntry, ...savedGratitudes].slice(0, 5); // Keep last 5
-    setSavedGratitudes(newGratitudes);
-    localStorage.setItem('gratitudes', JSON.stringify(newGratitudes));
-    setGratitudeEntry('');
-  };
-
-  const containerVariants: any = {
+  const containerVariants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
@@ -49,146 +42,161 @@ export const Home = () => {
     show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 300, damping: 24 } }
   };
 
+  // Grouping logic
+  const todayGoalLessons = lessonsData.filter(l => l.tags.includes(profile.goal || 'peace'));
+  const largeFeatured = todayGoalLessons.find(l => l.size === 'large') || lessonsData.find(l => l.size === 'large');
+
+  // Get unique units
+  const activeUnits = unitsData.filter(u => {
+    // Show units that match goals, or just take the first few
+    const firstLesson = lessonsData.find(l => l.id === u.lessons[0]);
+    return firstLesson?.tags.includes(profile.goal || 'peace') || true;
+  }).slice(0, 2); // Show top 2 units
+
+  const getDayLabel = () => format(new Date(), 'EEEE, MMM d');
+
   return (
     <motion.div
-      initial={{ opacity: 0, x: -50 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -50, transition: { duration: 0.2 } }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
-      className="h-full overflow-y-auto bg-brand-bg no-scrollbar pb-20 pt-16 relative"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="h-full overflow-y-auto bg-[#F9FAFB] no-scrollbar pb-24" // Soft light gray background
     >
-      {/* Decorative blurred background shapes */}
-      <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-indigo-50 to-transparent pointer-events-none" />
-
       <motion.div
-        className="px-6 space-y-10 relative z-10"
+        className="px-5 pt-12 space-y-8"
         variants={containerVariants}
         initial="hidden"
         animate="show"
       >
-        {/* Header */}
-        <motion.div variants={itemVariants} className="pt-4 pb-2">
-          <h1 className="text-[2.5rem] font-bold text-gray-900 mb-2 font-display leading-tight tracking-tight">
-            {profile.name ? `Good morning, ${profile.name}.` : 'Good morning.'}
-          </h1>
-          <p className="text-lg text-gray-500 font-medium">Take a moment for yourself today.</p>
+        {/* Header - Nibble Style */}
+        <motion.div variants={itemVariants} className="flex justify-between items-end">
+          <div>
+            <p className="text-sm text-gray-500 font-semibold uppercase tracking-wider mb-1">{getDayLabel()}</p>
+            <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">For You</h1>
+          </div>
+          <div className="flex items-center gap-1.5 bg-orange-100 px-3 py-1.5 rounded-full text-orange-600 font-bold text-sm">
+            <Flame size={16} className="fill-orange-500" />
+            {streak}
+          </div>
         </motion.div>
 
-        {/* Daily Gratitude Section */}
-        <motion.section variants={itemVariants}>
-          <div className="flex items-center gap-2 mb-5 text-indigo-600">
+        {/* Weekly Streak Tracker (Visual dummy) */}
+        <motion.div variants={itemVariants} className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex justify-between items-center px-6">
+          {['M','T','W','T','F','S','S'].map((day, i) => (
+             <div key={i} className={`flex flex-col items-center gap-1 ${i === 2 ? 'opacity-100' : 'opacity-40'}`}>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${i === 2 ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-600'}`}>
+                  {i < 2 ? '✓' : day}
+                </div>
+             </div>
+          ))}
+        </motion.div>
+
+        {/* Featured Big Card (If time allows a large lesson) */}
+        {profile.time !== 'small' && largeFeatured && (
+          <motion.section variants={itemVariants}>
+            <div className="flex justify-between items-end mb-4">
+               <h2 className="text-xl font-bold text-gray-900">Today's Focus</h2>
+            </div>
             <motion.div
-              animate={gratitudeEntry.length > 0 ? { scale: [1, 1.2, 1] } : {}}
-              transition={{ repeat: gratitudeEntry.length > 0 ? Infinity : 0, duration: 1.5 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => navigate(`/lesson/${largeFeatured.id}`)}
+              className={`relative overflow-hidden cursor-pointer rounded-3xl p-6 h-[220px] flex flex-col justify-end shadow-md ${largeFeatured.coverImage}`}
             >
-              <Heart size={20} className="fill-current" />
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-10" />
+
+              <div className="relative z-20">
+                <div className="flex items-center gap-2 text-white/90 text-sm font-bold mb-2 uppercase tracking-wider">
+                   <Target size={14} /> Recommended
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-1 leading-tight">{largeFeatured.title}</h3>
+                <p className="text-white/80 text-sm line-clamp-2">{largeFeatured.description}</p>
+              </div>
             </motion.div>
-            <h2 className="text-xl font-bold text-gray-900 tracking-tight">Daily Gratitude</h2>
-          </div>
-          <div className="bg-white/80 p-6 rounded-[2rem] shadow-soft backdrop-blur-xl border border-white relative overflow-hidden group">
-            {/* Shimmer effect */}
-            <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_2s_infinite] pointer-events-none" />
+          </motion.section>
+        )}
 
-            <form onSubmit={saveGratitude}>
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="What made you smile today?"
-                  className="w-full bg-gray-50/50 text-gray-800 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 placeholder-gray-400 font-medium border border-gray-100 transition-all shadow-inner-soft"
-                  value={gratitudeEntry}
-                  onChange={(e) => setGratitudeEntry(e.target.value)}
-                />
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  type="submit"
-                  disabled={!gratitudeEntry.trim()}
-                  className="absolute right-2 top-2 bottom-2 bg-indigo-600 text-white px-5 rounded-xl text-sm font-semibold disabled:opacity-0 disabled:scale-95 transition-all shadow-md flex items-center justify-center"
-                >
-                  Save
-                </motion.button>
-              </div>
-            </form>
+        {/* Units / Courses */}
+        {activeUnits.map(unit => (
+          <motion.section variants={itemVariants} key={unit.id} className="pt-2">
+            <div className="flex justify-between items-center mb-4">
+               <h2 className="text-xl font-bold text-gray-900">{unit.title}</h2>
+               <span className="text-sm font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full cursor-pointer hover:bg-indigo-100 transition-colors">See path</span>
+            </div>
 
-            {savedGratitudes.length > 0 && (
-              <div className="mt-6 space-y-3">
-                <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">Recent entries</h3>
-                {savedGratitudes.map((g, i) => (
+            {/* Horizontal Scroll for Unit Days */}
+            <div className="flex gap-4 overflow-x-auto no-scrollbar -mx-5 px-5 pb-4">
+              {unit.lessons.map((lessonId, idx) => {
+                const lesson = lessonsData.find(l => l.id === lessonId);
+                if (!lesson) return null;
+                const isCompleted = completedLessons.includes(lesson.id);
+                const isLocked = !isCompleted && idx > 0 && !completedLessons.includes(unit.lessons[idx-1]);
+
+                return (
                   <motion.div
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    key={i}
-                    className="flex gap-3 items-center text-sm font-medium text-gray-700 bg-gray-50/80 px-4 py-3.5 rounded-2xl border border-gray-100/50"
+                    key={lesson.id}
+                    whileHover={!isLocked ? { scale: 1.03 } : {}}
+                    whileTap={!isLocked ? { scale: 0.97 } : {}}
+                    onClick={() => !isLocked && navigate(`/lesson/${lesson.id}`)}
+                    className={`min-w-[160px] w-[160px] flex-shrink-0 relative overflow-hidden rounded-[1.5rem] bg-white border border-gray-100 shadow-sm ${isLocked ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'} transition-all`}
                   >
-                    <Sparkles size={16} className="text-amber-500 shrink-0" />
-                    <p className="truncate">{g}</p>
+                     <div className={`h-[120px] ${lesson.coverImage} relative`}>
+                        {isCompleted && (
+                          <div className="absolute top-3 right-3 bg-white/90 rounded-full p-1 shadow-sm">
+                            <Sparkles size={14} className="text-amber-500" />
+                          </div>
+                        )}
+                     </div>
+                     <div className="p-4">
+                        <p className="text-[10px] uppercase font-bold text-gray-400 mb-1 tracking-wider">Day {idx + 1}</p>
+                        <h4 className="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2">{lesson.title}</h4>
+
+                        {/* Fake Progress Bar */}
+                        <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
+                           <div className={`h-full ${isCompleted ? 'w-full bg-green-500' : 'w-0'} transition-all`} />
+                        </div>
+                     </div>
+                     {isLocked && (
+                       <div className="absolute inset-0 bg-white/50 backdrop-blur-[1px] flex items-center justify-center z-10">
+                         <div className="bg-white rounded-full p-2 shadow-sm text-gray-400">
+                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                         </div>
+                       </div>
+                     )}
                   </motion.div>
-                ))}
-              </div>
-            )}
+                );
+              })}
+            </div>
+          </motion.section>
+        ))}
+
+        {/* Quick Bites (Small Lessons) */}
+        <motion.section variants={itemVariants} className="pt-2">
+          <div className="flex justify-between items-center mb-4">
+             <h2 className="text-xl font-bold text-gray-900">Quick Bites</h2>
+             <span className="text-sm font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full cursor-pointer hover:bg-indigo-100 transition-colors">See all</span>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            {lessonsData.filter(l => l.size === 'small' || !l.size).slice(0, 4).map(lesson => (
+              <motion.div
+                key={lesson.id}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => navigate(`/lesson/${lesson.id}`)}
+                className={`rounded-2xl p-4 flex flex-col justify-between shadow-sm cursor-pointer aspect-square ${lesson.coverImage} relative overflow-hidden`}
+              >
+                 <div className="absolute inset-0 bg-white/20 backdrop-blur-[2px]"></div>
+                 <div className="relative z-10">
+                   <div className="bg-white/90 w-8 h-8 rounded-full flex items-center justify-center mb-3 shadow-sm text-indigo-600">
+                     <Play size={14} className="ml-0.5 fill-current" />
+                   </div>
+                   <h4 className="font-bold text-gray-900 text-sm leading-tight line-clamp-2">{lesson.title}</h4>
+                 </div>
+              </motion.div>
+            ))}
           </div>
         </motion.section>
-
-        {/* Micro Lessons Section */}
-        <motion.section variants={itemVariants}>
-          <div className="flex items-center gap-2 mb-5 text-indigo-600">
-            <BookOpen size={20} className="transition-transform group-hover:rotate-12" />
-            <h2 className="text-xl font-bold text-gray-900 tracking-tight">
-              {profile.goal === 'peace' ? 'Your Path to Peace' :
-               profile.goal === 'presence' ? 'Your Path to Presence' :
-               profile.goal === 'joy' ? 'Your Path to Joy' :
-               profile.goal === 'compassion' ? 'Your Path to Kindness' :
-               'Discover'}
-            </h2>
-          </div>
-          <div className="grid gap-5">
-            {
-              // Sort lessons to prioritize user's goal
-              [...lessonsData].sort((a, b) => {
-                const aMatches = a.tags?.includes(profile.goal) ? 1 : 0;
-                const bMatches = b.tags?.includes(profile.goal) ? 1 : 0;
-                return bMatches - aMatches;
-              }).map((lesson) => {
-              const isCompleted = completedLessons.includes(lesson.id);
-              return (
-                <motion.div
-                  key={lesson.id}
-                  whileHover={{ scale: 1.03, y: -2 }}
-                  whileTap={{ scale: 0.97 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                  onClick={() => navigate(`/lesson/${lesson.id}`)}
-                  className={`relative overflow-hidden group cursor-pointer p-7 rounded-[2rem] shadow-soft hover:shadow-float border border-white/40 ${lesson.coverImage} transition-shadow duration-300`}
-                >
-                  <div className="relative z-10 flex flex-col h-full min-h-[140px] justify-between">
-                    <div>
-                      {isCompleted && (
-                        <motion.span
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          className="inline-flex items-center gap-1 bg-white/40 text-xs font-bold px-3 py-1 rounded-full mb-4 text-gray-900 backdrop-blur-md shadow-sm relative overflow-hidden"
-                        >
-                          <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/50 to-transparent animate-[shimmer_3s_infinite] pointer-events-none" />
-                          <Sparkles size={12} className="text-amber-600" /> Completed
-                        </motion.span>
-                      )}
-                      <h3 className="text-[1.35rem] font-bold text-gray-900 mb-2 font-display leading-tight">{lesson.title}</h3>
-                      <p className="text-gray-800 text-sm font-medium leading-relaxed opacity-90 max-w-[85%]">{lesson.description}</p>
-                    </div>
-                  </div>
-                  {/* Decorative background shapes for card depth */}
-                  <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-white/30 rounded-full blur-3xl group-hover:bg-white/40 transition-colors duration-500"></div>
-                  <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-white/40 to-transparent opacity-50 mix-blend-overlay"></div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </motion.section>
-
-        {/* Supportive Footer */}
-        <motion.div variants={itemVariants} className="text-center pb-10 pt-8">
-          <Moon size={24} className="mx-auto text-gray-300 mb-4" />
-          <p className="text-xs font-medium text-gray-400 tracking-wide">Remember, healing is not linear.<br/>Be gentle with yourself.</p>
-        </motion.div>
 
       </motion.div>
     </motion.div>

@@ -5,6 +5,7 @@ export interface UserProfile {
   name: string;
   feeling: string;
   goal: string;
+  time: string;
 }
 
 const DEFAULT_PROFILE: UserProfile = {
@@ -12,6 +13,7 @@ const DEFAULT_PROFILE: UserProfile = {
   name: '',
   feeling: '',
   goal: '',
+  time: '',
 };
 
 export function useUserProfile() {
@@ -35,12 +37,13 @@ export function useUserProfile() {
     setProfile(prev => ({ ...prev, ...updates }));
   };
 
-  const completeOnboarding = (name: string, feeling: string, goal: string) => {
+  const completeOnboarding = (name: string, feeling: string, goal: string, time: string) => {
     setProfile({
       hasCompletedOnboarding: true,
       name,
       feeling,
       goal,
+      time,
     });
   };
 

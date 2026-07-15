@@ -2,7 +2,7 @@ import type { Lesson } from './types';
 
 export const lessonsData: Lesson[] = [
   {
-    id: "power-of-small-wins",
+    id: "power-of-small-wins", size: "medium", unit: "coping-with-anxiety", day: 2,
     title: "Small Wins",
     description: "Start small when feeling overwhelmed.",
     coverImage: "bg-blue-100",
@@ -47,7 +47,7 @@ export const lessonsData: Lesson[] = [
     ]
   },
   {
-    id: "reframing-thoughts",
+    id: "reframing-thoughts", size: "small",
     title: "Inner Critic",
     description: "Be kind to your mind.",
     coverImage: "bg-indigo-100",
@@ -91,7 +91,7 @@ export const lessonsData: Lesson[] = [
     ]
   },
   {
-    id: "finding-joy",
+    id: "finding-joy", size: "medium", unit: "finding-light", day: 2,
     title: "Noticing Joy",
     description: "Train your brain to see the good.",
     coverImage: "bg-amber-100",
@@ -135,7 +135,7 @@ export const lessonsData: Lesson[] = [
     ]
   },
   {
-    id: "letting-go",
+    id: "letting-go", size: "small",
     title: "Letting Go",
     description: "Release the need to control everything.",
     coverImage: "bg-teal-100",
@@ -179,7 +179,7 @@ export const lessonsData: Lesson[] = [
     ]
   },
   {
-    id: "grounding-now",
+    id: "grounding-now", size: "large", unit: "coping-with-anxiety", day: 1,
     title: "Here, Now",
     description: "Anchor yourself when anxiety spirals.",
     coverImage: "bg-rose-100",
@@ -223,7 +223,7 @@ export const lessonsData: Lesson[] = [
     ]
   },
   {
-    id: 'morning-light',
+    id: "morning-light", size: "large", unit: "finding-light", day: 1,
     title: 'The Morning Light',
     description: 'How the sun sets the rhythm for your day.',
     coverImage: 'bg-gradient-to-br from-amber-500 to-orange-400',
@@ -261,7 +261,7 @@ export const lessonsData: Lesson[] = [
     ]
   },
   {
-    id: 'dopamine-trap',
+    id: "dopamine-trap", size: "medium", unit: "finding-light", day: 3,
     title: 'The Morning Trap',
     description: 'Protecting your first hour from artificial spikes.',
     coverImage: 'bg-gradient-to-br from-red-500 to-rose-600',
@@ -308,7 +308,7 @@ export const lessonsData: Lesson[] = [
     ]
   },
   {
-    id: 'the-weight',
+    id: "the-weight", size: "small", unit: "coping-with-anxiety", day: 3,
     title: 'The Weight',
     description: 'Shrinking the timeline when you feel overwhelmed.',
     coverImage: 'bg-gradient-to-br from-slate-700 to-gray-900',
@@ -355,7 +355,7 @@ export const lessonsData: Lesson[] = [
     ]
   },
   {
-    id: 'grace',
+    id: "grace", size: "medium",
     title: 'Grace',
     description: 'The quiet act of forgiving yourself.',
     coverImage: 'bg-gradient-to-br from-pink-400 to-rose-400',

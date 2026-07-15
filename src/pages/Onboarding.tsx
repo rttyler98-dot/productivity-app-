@@ -19,6 +19,12 @@ const GOAL_OPTIONS = [
   { id: 'compassion', label: 'Self-Compassion', description: 'Be kinder to myself.' },
 ];
 
+const TIME_OPTIONS = [
+  { id: 'small', label: '3-5 minutes', description: 'Just a quick breather.' },
+  { id: 'medium', label: '10 minutes', description: 'A moment to reflect.' },
+  { id: 'large', label: '15+ minutes', description: 'Deep dive into myself.' },
+];
+
 export function Onboarding() {
   const navigate = useNavigate();
   const { completeOnboarding } = useUserProfile();
@@ -27,14 +33,20 @@ export function Onboarding() {
   const [name, setName] = useState('');
   const [feeling, setFeeling] = useState('');
   const [goal, setGoal] = useState('');
+  const [time, setTime] = useState('');
 
-  const handleNext = () => {
+  const handleNext = (overrideFeeling?: string, overrideGoal?: string, overrideTime?: string) => {
+    const currentFeeling = overrideFeeling || feeling;
+    const currentGoal = overrideGoal || goal;
+    const currentTime = overrideTime || time;
+
     if (step === 0 && name.trim() === '') return;
-    if (step === 1 && !feeling) return;
+    if (step === 1 && !currentFeeling) return;
+    if (step === 2 && !currentGoal) return;
 
-    if (step === 2) {
-      if (!goal) return;
-      completeOnboarding(name.trim(), feeling, goal);
+    if (step === 3) {
+      if (!currentTime) return;
+      completeOnboarding(name.trim(), currentFeeling, currentGoal, currentTime);
       navigate('/');
       return;
     }
@@ -59,7 +71,7 @@ export function Onboarding() {
 
         {/* Progress Dots */}
         <div className="flex justify-center gap-2 mb-12">
-          {[0, 1, 2].map((i) => (
+          {[0, 1, 2, 3].map((i) => (
             <div
               key={i}
               className={`h-1.5 rounded-full transition-all duration-500 ${
@@ -120,7 +132,7 @@ export function Onboarding() {
                       key={opt.id}
                       onClick={() => {
                         setFeeling(opt.id);
-                        setTimeout(handleNext, 400); // Auto-advance after small delay
+                        setTimeout(() => handleNext(opt.id), 400); // Auto-advance after small delay
                       }}
                       className={`p-5 rounded-2xl border text-left transition-all duration-300 ${
                         feeling === opt.id
@@ -153,9 +165,44 @@ export function Onboarding() {
                   {GOAL_OPTIONS.map((opt) => (
                     <button
                       key={opt.id}
-                      onClick={() => setGoal(opt.id)}
+                      onClick={() => {
+                        setGoal(opt.id);
+                        setTimeout(() => handleNext(undefined, opt.id), 400); // Auto-advance after small delay
+                      }}
                       className={`p-5 rounded-2xl border text-left transition-all duration-300 ${
                         goal === opt.id
+                          ? 'bg-white/20 border-white/50 scale-[1.02]'
+                          : 'bg-white/5 border-white/10 hover:bg-white/10'
+                      }`}
+                    >
+                      <div className="text-white font-medium text-lg">{opt.label}</div>
+                      <div className="text-white/60 text-sm mt-1">{opt.description}</div>
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
+            {step === 3 && (
+              <motion.div
+                key="step3"
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                className="flex flex-col gap-6"
+              >
+                <h1 className="text-3xl md:text-4xl font-serif text-white text-center leading-tight mb-4">
+                  How much time can you commit daily?
+                </h1>
+                <div className="grid gap-3">
+                  {TIME_OPTIONS.map((opt) => (
+                    <button
+                      key={opt.id}
+                      onClick={() => setTime(opt.id)}
+                      className={`p-5 rounded-2xl border text-left transition-all duration-300 ${
+                        time === opt.id
                           ? 'bg-white/20 border-white/50 scale-[1.02]'
                           : 'bg-white/5 border-white/10 hover:bg-white/10'
                       }`}
@@ -173,15 +220,16 @@ export function Onboarding() {
         {/* Navigation Button */}
         <div className="mt-8">
           <button
-            onClick={handleNext}
+            onClick={() => handleNext()}
             disabled={
               (step === 0 && name.trim() === '') ||
               (step === 1 && !feeling) ||
-              (step === 2 && !goal)
+              (step === 2 && !goal) ||
+              (step === 3 && !time)
             }
             className="w-full bg-white text-blue-900 font-semibold py-4 rounded-2xl text-lg disabled:opacity-40 disabled:scale-100 active:scale-[0.98] transition-all shadow-xl shadow-black/20"
           >
-            {step === 2 ? 'Begin' : 'Continue'}
+            {step === 3 ? 'Begin' : 'Continue'}
           </button>
         </div>
 
