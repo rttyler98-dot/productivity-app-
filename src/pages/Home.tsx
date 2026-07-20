@@ -101,7 +101,12 @@ export const Home = () => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => navigate(`/lesson/${largeFeatured.id}`)}
-              className={`relative overflow-hidden cursor-pointer rounded-3xl p-6 h-[220px] flex flex-col justify-end shadow-md ${largeFeatured.coverImage}`}
+              className="relative overflow-hidden cursor-pointer rounded-3xl p-6 h-[220px] flex flex-col justify-end shadow-md"
+              style={{
+                backgroundImage: largeFeatured?.coverImage?.startsWith('http') ? `url(${largeFeatured.coverImage})` : undefined,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}
             >
               {/* Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-10" />
@@ -141,7 +146,13 @@ export const Home = () => {
                     onClick={() => !isLocked && navigate(`/lesson/${lesson.id}`)}
                     className={`min-w-[160px] w-[160px] flex-shrink-0 relative overflow-hidden rounded-[1.5rem] bg-white border border-gray-100 shadow-sm ${isLocked ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'} transition-all`}
                   >
-                     <div className={`h-[120px] ${lesson.coverImage} relative`}>
+                     <div className="h-[120px] relative"
+                        style={{
+                          backgroundImage: lesson?.coverImage?.startsWith('http') ? `url(${lesson.coverImage})` : undefined,
+                          backgroundSize: 'cover',
+                          backgroundPosition: 'center'
+                        }}
+                     >
                         {isCompleted && (
                           <div className="absolute top-3 right-3 bg-white/90 rounded-full p-1 shadow-sm">
                             <Sparkles size={14} className="text-amber-500" />
@@ -184,7 +195,12 @@ export const Home = () => {
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => navigate(`/lesson/${lesson.id}`)}
-                className={`rounded-2xl p-4 flex flex-col justify-between shadow-sm cursor-pointer aspect-square ${lesson.coverImage} relative overflow-hidden`}
+                className="rounded-2xl p-4 flex flex-col justify-between shadow-sm cursor-pointer aspect-square relative overflow-hidden"
+                style={{
+                  backgroundImage: lesson?.coverImage?.startsWith('http') ? `url(${lesson.coverImage})` : undefined,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center'
+                }}
               >
                  <div className="absolute inset-0 bg-white/20 backdrop-blur-[2px]"></div>
                  <div className="relative z-10">

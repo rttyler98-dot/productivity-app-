@@ -5,7 +5,7 @@ export const lessonsData: Lesson[] = [
     id: "power-of-small-wins", size: "medium", unit: "coping-with-anxiety", day: 2,
     title: "Small Wins",
     description: "Start small when feeling overwhelmed.",
-    coverImage: "bg-blue-100",
+    coverImage: "https://images.unsplash.com/photo-1518241353330-0f7941c2d1b5?q=80&w=600&auto=format&fit=crop",
     tags: ['peace', 'compassion'],
     slides: [
       {
@@ -50,7 +50,7 @@ export const lessonsData: Lesson[] = [
     id: "reframing-thoughts", size: "small",
     title: "Inner Critic",
     description: "Be kind to your mind.",
-    coverImage: "bg-indigo-100",
+    coverImage: "https://images.unsplash.com/photo-1518241353330-0f7941c2d1b5?q=80&w=600&auto=format&fit=crop",
     tags: ['compassion', 'peace'],
     slides: [
       {
@@ -94,7 +94,7 @@ export const lessonsData: Lesson[] = [
     id: "finding-joy", size: "medium", unit: "finding-light", day: 2,
     title: "Noticing Joy",
     description: "Train your brain to see the good.",
-    coverImage: "bg-amber-100",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600&auto=format&fit=crop",
     tags: ['joy', 'presence'],
     slides: [
       {
@@ -138,7 +138,7 @@ export const lessonsData: Lesson[] = [
     id: "letting-go", size: "small",
     title: "Letting Go",
     description: "Release the need to control everything.",
-    coverImage: "bg-teal-100",
+    coverImage: "https://images.unsplash.com/photo-1518241353330-0f7941c2d1b5?q=80&w=600&auto=format&fit=crop",
     tags: ['peace', 'compassion'],
     slides: [
       {
@@ -182,7 +182,7 @@ export const lessonsData: Lesson[] = [
     id: "grounding-now", size: "large", unit: "coping-with-anxiety", day: 1,
     title: "Here, Now",
     description: "Anchor yourself when anxiety spirals.",
-    coverImage: "bg-rose-100",
+    coverImage: "https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?q=80&w=600&auto=format&fit=crop",
     tags: ['presence', 'peace'],
     slides: [
       {
@@ -226,7 +226,7 @@ export const lessonsData: Lesson[] = [
     id: "morning-light", size: "large", unit: "finding-light", day: 1,
     title: 'The Morning Light',
     description: 'How the sun sets the rhythm for your day.',
-    coverImage: 'bg-gradient-to-br from-amber-500 to-orange-400',
+    coverImage: 'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?q=80&w=800&auto=format&fit=crop',
     tags: ['joy', 'presence'],
     slides: [
       {
@@ -264,7 +264,7 @@ export const lessonsData: Lesson[] = [
     id: "dopamine-trap", size: "medium", unit: "finding-light", day: 3,
     title: 'The Morning Trap',
     description: 'Protecting your first hour from artificial spikes.',
-    coverImage: 'bg-gradient-to-br from-red-500 to-rose-600',
+    coverImage: 'https://images.unsplash.com/photo-1554629947-334ff61d85dc?q=80&w=600&auto=format&fit=crop',
     tags: ['presence', 'peace'],
     slides: [
       {
@@ -311,7 +311,7 @@ export const lessonsData: Lesson[] = [
     id: "the-weight", size: "small", unit: "coping-with-anxiety", day: 3,
     title: 'The Weight',
     description: 'Shrinking the timeline when you feel overwhelmed.',
-    coverImage: 'bg-gradient-to-br from-slate-700 to-gray-900',
+    coverImage: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=800&auto=format&fit=crop',
     tags: ['peace', 'compassion'],
     slides: [
       {
@@ -358,7 +358,7 @@ export const lessonsData: Lesson[] = [
     id: "grace", size: "medium",
     title: 'Grace',
     description: 'The quiet act of forgiving yourself.',
-    coverImage: 'bg-gradient-to-br from-pink-400 to-rose-400',
+    coverImage: 'https://images.unsplash.com/photo-1518895949257-7621c3c786d7?q=80&w=600&auto=format&fit=crop',
     tags: ['compassion', 'peace'],
     slides: [
       {
